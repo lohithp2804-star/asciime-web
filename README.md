@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Asciime Web v1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Your face. In ASCII. Analysed by AI.**
 
-Currently, two official plugins are available:
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-asciime--web-00ff41?style=flat-square&logo=vercel)](https://asciime-web-lohithp2804.vercel.app)
+[![Built with Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?style=flat-square&logo=google)](https://aistudio.google.com)
+[![React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+Asciime Web is a cyberpunk-themed webcam app that converts your live camera feed into ASCII art in real time — entirely in the browser. No uploads. No servers. Just pixels turned into characters, frame by frame.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tap **Analyse** and Google Gemini reads the scene — returning a dramatic description, keyword tags, and a threat level. Because why not.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## What it does
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Streams your webcam and renders it as ASCII art live
+- 4 character density maps — Simple, Complex, Binary, Blocks
+- 4 color modes — Matrix green, B&W, True Color, Retro amber
+- Adjustable font size, brightness, contrast and resolution
+- AI scene analysis powered by Gemini Flash
+- Screenshot export of your ASCII frame
+- Full cyberpunk HUD with CRT scanline overlay and audio feedback
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Stack
+
+`React 19` `TypeScript` `Vite` `Tailwind CSS v4` `Google Gemini` `html2canvas` `Vercel`
+
+---
+
+## Run locally
+
+```bash
+git clone https://github.com/lohithp2804-star/asciime-web.git
+cd asciime-web
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Add a `.env` file:
 ```
+VITE_GEMINI_API_KEY=your_key_here
+```
+Free API key → [aistudio.google.com](https://aistudio.google.com)
+
+---
+
+*My first vibe-coded project — built with Claude and Google AI Studio.*
+
+**[@lohithp2804-star](https://github.com/lohithp2804-star)** 
