@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { AsciiOptions } from '../types';
 import { densityMaps } from '../types';
 import html2canvas from 'html2canvas';
@@ -14,6 +14,46 @@ export function AsciiCanvas({ options, setCaptureFn, setSaveAsciiFn }: AsciiCanv
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const preRef = useRef<HTMLPreElement>(null);
   const requestRef = useRef<number>(0);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [scale, setScale] = useState(1);
+
+  // Monitor screen size to scale the base font size down on mobile automatically
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Monitor canvas container and pre elements to calculate precise scale-to-fit
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      if (!containerRef.current || !preRef.current) return;
+      const containerWidth = containerRef.current.clientWidth;
+      
+      // Temporarily reset scale to measure natural width
+      preRef.current.style.transform = 'scale(1)';
+      const preWidth = preRef.current.scrollWidth;
+      
+      if (preWidth > containerWidth && containerWidth > 0) {
+        const newScale = containerWidth / preWidth;
+        setScale(newScale);
+      } else {
+        setScale(1);
+      }
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    return () => resizeObserver.disconnect();
+  }, [options, isSmallScreen]);
+
+  const effectiveFontSize = isSmallScreen ? Math.max(6, options.fontSize - 4) : options.fontSize;
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -178,13 +218,18 @@ export function AsciiCanvas({ options, setCaptureFn, setSaveAsciiFn }: AsciiCanv
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black flex-1">
+    <div ref={containerRef} className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black flex-1 p-2">
       <video ref={videoRef} className="hidden" playsInline muted />
       <canvas ref={canvasRef} className="hidden" />
       <pre 
         ref={preRef} 
-        className={`font-mono text-center leading-none ${getColorClass()}`}
-        style={{ fontSize: `${options.fontSize}px` }}
+        className={`font-mono text-center leading-none ${getColorClass()} w-full max-w-full`}
+        style={{ 
+          fontSize: `${effectiveFontSize}px`,
+          transform: `scale(${scale})`,
+          transformOrigin: 'center center',
+          whiteSpace: 'pre'
+        }}
       />
     </div>
   );

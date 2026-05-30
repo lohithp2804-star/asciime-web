@@ -51,15 +51,16 @@ function App() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-black flex flex-col font-mono text-[#00ff41] relative scanlines">
+    <div className="h-[100dvh] w-full max-w-[100vw] overflow-x-hidden bg-black flex flex-col font-mono text-[#00ff41] relative scanlines pb-[72px] md:pb-0">
       {/* HUD Header */}
-      <header className="h-14 bg-gradient-to-b from-black via-black/80 to-transparent border-b border-[#00ff41]/20 flex items-center justify-between px-6 z-10 shrink-0">
-        <div className="flex items-center gap-3">
-          <Terminal className="animate-pulse text-[#00ff41]" size={24} />
-          <h1 className="text-xl tracking-widest font-bold drop-shadow-[0_0_5px_rgba(0,255,65,0.8)]">Asciime-Web v1.0</h1>
+      <header className="h-14 bg-gradient-to-b from-black via-black/80 to-transparent border-b border-[#00ff41]/20 flex items-center justify-between px-4 sm:px-6 z-10 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <Terminal className="animate-pulse text-[#00ff41] shrink-0 w-[18px] h-[18px] sm:w-[24px] sm:h-[24px]" />
+          <h1 className="text-sm sm:text-base md:text-xl tracking-widest font-bold drop-shadow-[0_0_5px_rgba(0,255,65,0.8)] truncate">Asciime-Web v1.0</h1>
         </div>
-        <div className="text-sm opacity-80 tracking-wider">
-          SYS.STATUS: ONLINE · CAM.FEED: ACTIVE · REC <span className="text-red-500 animate-pulse">●</span>
+        <div className="text-xs sm:text-sm opacity-80 tracking-wider text-right shrink-0">
+          <span>SYS.STATUS: ONLINE</span>
+          <span className="hidden sm:inline"> · CAM.FEED: ACTIVE · REC <span className="text-red-500 animate-pulse">●</span></span>
         </div>
       </header>
 
